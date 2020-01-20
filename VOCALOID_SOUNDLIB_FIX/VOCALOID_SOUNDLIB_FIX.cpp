@@ -128,7 +128,7 @@ int main()
 
 	allSuccess = allSuccess && copy_keys(keys, [](const wstring& str)->wstring {
 		wstring wstr = str;
-		wstr[21] = L'P';
+		wstr[21] = L'V';
 		return wstr;
 		});
 
