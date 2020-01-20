@@ -136,9 +136,9 @@ int main()
 	if (allSuccess)
 	{
 		wcout << L"All finished! \n";
-#ifndef DEBUG
+#ifdef DELETE_UNUSED_KEYS
 		delete_keys(root);
-#endif // !DEBUG
+#endif // DELETE_UNUSED_KEYS
 	}
 	else {
 		wcout << L"All finished, but with errors. \n";
