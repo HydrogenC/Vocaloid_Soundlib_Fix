@@ -52,9 +52,7 @@ bool copy_keys(const vector<wstring>& keys, function<const wstring(wstring&)> pa
 	for (auto i : keys) {
 
 		wstring dest = pathModifier(i);
-		if (crk.Create(HKEY_LOCAL_MACHINE, dest.c_str()) != ERROR_SUCCESS) {
-			_RTN_ERR
-		}
+		crk.Create(HKEY_LOCAL_MACHINE, dest.c_str());
 
 		DWORD index = 0;
 		for (;; index += 1) {
@@ -123,12 +121,10 @@ int main()
 		index += 1;
 	}
 
-#ifdef DEBUG
 	for (auto i : keys)
 	{
-		wcout << i << L'\n';
+		wcout << L"Found key: " << i << L'\n';
 	}
-#endif // DEBUG
 
 	allSuccess = allSuccess && copy_keys(keys, [](const wstring& str)->wstring {
 		wstring wstr = str;
@@ -136,14 +132,15 @@ int main()
 		return wstr;
 		});
 
-#ifndef DEBUG
+
 	if (allSuccess)
 	{
 		wcout << L"All finished! \n";
+#ifndef DEBUG
 		delete_keys(root);
+#endif // !DEBUG
 	}
 	else {
 		wcout << L"All finished, but with errors. \n";
 	}
-#endif // !DEBUG
 }
