@@ -89,23 +89,6 @@ bool copy_keys(const vector<wstring>& keys, function<const wstring(wstring&)> pa
 	_RTN_SUC
 }
 
-bool delete_keys(const wstring root)
-{
-	CRegKey crk;
-	if (crk.Open(HKEY_LOCAL_MACHINE, root.c_str()) == ERROR_SUCCESS) {
-		if (crk.RecurseDeleteKey(root.c_str()) == ERROR_SUCCESS) {
-			crk.Flush();
-			_RTN_SUC
-		}
-		else {
-			_RTN_ERR
-		}
-	}
-	else {
-		_RTN_ERR
-	}
-}
-
 int main()
 {
 	locale::global(locale("en-US.UTF-8"));
@@ -136,9 +119,6 @@ int main()
 	if (allSuccess)
 	{
 		wcout << L"All finished! \n";
-#ifdef DELETE_UNUSED_KEYS
-		delete_keys(root);
-#endif // DELETE_UNUSED_KEYS
 	}
 	else {
 		wcout << L"All finished, but with errors. \n";
